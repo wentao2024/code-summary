@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Result Evaluation</title>
+    <style>
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: Arial, sans-serif;
+            color: #333;
+            background-color: #f4f4f4;
+        }
+
+        /* navbar */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #333;
+            color: white;
+            padding: 10px;
+            width: 100%;
+            height: 35.5px;
+        }
+
+        .left-items {
+            display: flex;
+            align-items: center;
+        }
+
+        .right-items {
+            margin-right: 30px;
+            /* 右边距，保持一定距离 */
+        }
+
+        #logo {
+            border-radius: 50%; 
+            background-color: rgba(255, 255, 255, 0.5); 
+            width: 25px; 
+            height: 25px;
+            margin-left: 10px;
+            cursor: pointer;
+        }
+
+        #list {
+            width: 80%;
+            margin: 0 auto;
+            border-collapse: collapse;
+            text-align: center;
+        }
+
+        #list th {
+            background-color: #333;
+            color: white;
+            padding: 10px 0;
+        }
+
+        #list td {
+            padding: 15px 0;
+            border-bottom: 1px solid #ddd;
+        }
+
+        button {
+            padding: 8px 16px;
+            /* margin-right: 10px; */
+            /* 确保按钮与下拉菜单之间有足够的空间 */
+            background-color: rgba(31, 31, 31, 0.5); 
+            /* 或者任何其他希望的颜色 */
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- navbar -->
+    <div class="navbar">
+        <div class="left-items">
+            
+            <div id="logo"></div>
+        </div>
+        <div class="right-items">
+            <span id="welcomeMessage">Administrator <span id="username">Username</span></span>
+            <script>
+                // Assuming the username is stored in local storage
+                document.getElementById('username').textContent = localStorage.getItem('username') || 'xxx';
+            </script>
+        </div>
+    </div>
+
+    <h2 style="text-align: center; color: rgba(31, 31, 31, 0.8); padding: 15px;">User List</h2>
+    <table id="list">
+        <tr>
+            <th>Username</th>
+            <th>Role</th>
+            <th>Operation</th>
+        </tr>
+        <tr>
+            <td>user1</td>
+            <td>Administrator</td>
+            <td><button>Manage</button></td>
+        </tr>
+        <tr>
+            <td>user2</td>
+            <td>User</td>
+            <td><button>Manage</button></td>
+        </tr>
+        <tr>
+            <td colspan="3" style="padding:20px; cursor: pointer; background-color: rgba(31, 31, 31, 0.1);">Add New User...</td>
+        </tr>
+        
+
+
+    <!-- navbar -->
+    <script>
+        document.getElementById('logo').addEventListener('click', function() {
+            window.history.back();
+        });
+    </script>
+
+</body>
+
+</html>

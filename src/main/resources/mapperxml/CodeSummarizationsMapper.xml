@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.umass.cs520.mapper.CodeSummarizationsMapper">
+  <resultMap id="BaseResultMap" type="com.umass.cs520.domain.CodeSummarizations">
+    <!--@mbg.generated-->
+    <!--@Table CodeSummarizations-->
+    <id column="SummarizationID" jdbcType="INTEGER" property="summarizationid" />
+    <result column="UserID" jdbcType="INTEGER" property="userid" />
+    <result column="CodeText" jdbcType="LONGVARCHAR" property="codetext" />
+    <result column="Summarization" jdbcType="LONGVARCHAR" property="summarization" />
+    <result column="CreationDate" jdbcType="TIMESTAMP" property="creationdate" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    SummarizationID, UserID, CodeText, Summarization, CreationDate
+  </sql>
+
+  <resultMap id="CodeSummarizationWithEvaluationResultMap" type="com.umass.cs520.domain.CodeSummarization">
+    <id property="summarizationID" column="SummarizationID"/>
+    <result property="codeText" column="CodeText"/>
+    <result property="summarization" column="Summarization"/>
+    <result property="creationDate" column="CreationDate"/>
+    <result column="UserID" jdbcType="INTEGER" property="userId" />
+    <!-- Add properties for Evaluation -->
+    <result property="evaluations.evaluationid" column="EvaluationID"/>
+    <result property="evaluations.naturalnessscore" column="NaturalnessScore"/>
+    <result property="evaluations.usefulnessscore" column="UsefulnessScore"/>
+    <result property="evaluations.consistencyscore" column="ConsistencyScore"/>
+    <result property="evaluations.feedback" column="Feedback"/>
+    <result property="evaluations.evaluationdate" column="EvaluationDate"/>
+  </resultMap>
+
+  <select id="getCodeSummarizationsWithEvaluationByUserIDs" resultMap="CodeSummarizationWithEvaluationResultMap">
+    SELECT cs.*, ev.*
+    FROM CodeSummarizations cs
+    LEFT JOIN (
+    SELECT *
+    FROM Evaluations
+    WHERE EvaluationID IN (
+    SELECT MIN(EvaluationID)
+    FROM Evaluations
+    GROUP BY SummarizationID
+    )
+    ) ev ON cs.SummarizationID = ev.SummarizationID
+    WHERE cs.UserID IN
+    <foreach item="userID" index="index" collection="userIDs" open="(" separator="," close=")">
+      #{userID}
+    </foreach>
+  </select>
+
+
+
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from CodeSummarizations
+    where SummarizationID = #{summarizationid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <!--@mbg.generated-->
+    delete from CodeSummarizations
+    where SummarizationID = #{summarizationid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="SummarizationID" keyProperty="summarizationid" parameterType="com.umass.cs520.domain.CodeSummarizations" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into CodeSummarizations (UserID, CodeText, Summarization, 
+      CreationDate)
+    values (#{userid,jdbcType=INTEGER}, #{codetext,jdbcType=LONGVARCHAR}, #{summarization,jdbcType=LONGVARCHAR}, 
+      #{creationdate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" keyColumn="SummarizationID" keyProperty="summarizationid" parameterType="com.umass.cs520.domain.CodeSummarizations" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into CodeSummarizations
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userid != null">
+        UserID,
+      </if>
+      <if test="codetext != null">
+        CodeText,
+      </if>
+      <if test="summarization != null">
+        Summarization,
+      </if>
+      <if test="creationdate != null">
+        CreationDate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userid != null">
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="codetext != null">
+        #{codetext,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="summarization != null">
+        #{summarization,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="creationdate != null">
+        #{creationdate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.umass.cs520.domain.CodeSummarizations">
+    <!--@mbg.generated-->
+    update CodeSummarizations
+    <set>
+      <if test="userid != null">
+        UserID = #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="codetext != null">
+        CodeText = #{codetext,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="summarization != null">
+        Summarization = #{summarization,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="creationdate != null">
+        CreationDate = #{creationdate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where SummarizationID = #{summarizationid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.umass.cs520.domain.CodeSummarizations">
+    <!--@mbg.generated-->
+    update CodeSummarizations
+    set UserID = #{userid,jdbcType=INTEGER},
+      CodeText = #{codetext,jdbcType=LONGVARCHAR},
+      Summarization = #{summarization,jdbcType=LONGVARCHAR},
+      CreationDate = #{creationdate,jdbcType=TIMESTAMP}
+    where SummarizationID = #{summarizationid,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.umass.cs520.mapper.FileUploadsMapper">
+  <resultMap id="BaseResultMap" type="com.umass.cs520.domain.FileUploads">
+    <!--@mbg.generated-->
+    <!--@Table FileUploads-->
+    <id column="FileID" jdbcType="INTEGER" property="fileid" />
+    <result column="UserID" jdbcType="INTEGER" property="userid" />
+    <result column="FilePath" jdbcType="VARCHAR" property="filepath" />
+    <result column="UploadDate" jdbcType="TIMESTAMP" property="uploaddate" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    FileID, UserID, FilePath, UploadDate
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from FileUploads
+    where FileID = #{fileid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <!--@mbg.generated-->
+    delete from FileUploads
+    where FileID = #{fileid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="FileID" keyProperty="fileid" parameterType="com.umass.cs520.domain.FileUploads" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into FileUploads (UserID, FilePath, UploadDate
+      )
+    values (#{userid,jdbcType=INTEGER}, #{filepath,jdbcType=VARCHAR}, #{uploaddate,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="FileID" keyProperty="fileid" parameterType="com.umass.cs520.domain.FileUploads" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into FileUploads
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userid != null">
+        UserID,
+      </if>
+      <if test="filepath != null">
+        FilePath,
+      </if>
+      <if test="uploaddate != null">
+        UploadDate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userid != null">
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="filepath != null">
+        #{filepath,jdbcType=VARCHAR},
+      </if>
+      <if test="uploaddate != null">
+        #{uploaddate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.umass.cs520.domain.FileUploads">
+    <!--@mbg.generated-->
+    update FileUploads
+    <set>
+      <if test="userid != null">
+        UserID = #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="filepath != null">
+        FilePath = #{filepath,jdbcType=VARCHAR},
+      </if>
+      <if test="uploaddate != null">
+        UploadDate = #{uploaddate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where FileID = #{fileid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.umass.cs520.domain.FileUploads">
+    <!--@mbg.generated-->
+    update FileUploads
+    set UserID = #{userid,jdbcType=INTEGER},
+      FilePath = #{filepath,jdbcType=VARCHAR},
+      UploadDate = #{uploaddate,jdbcType=TIMESTAMP}
+    where FileID = #{fileid,jdbcType=INTEGER}
+  </update>
+</mapper>

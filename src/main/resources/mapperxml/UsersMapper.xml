@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.umass.cs520.mapper.UsersMapper">
+  <resultMap id="BaseResultMap" type="com.umass.cs520.domain.Users">
+    <!--@mbg.generated-->
+    <!--@Table Users-->
+    <id column="UserID" jdbcType="INTEGER" property="userid" />
+    <result column="Username" jdbcType="VARCHAR" property="username" />
+    <result column="Password" jdbcType="VARCHAR" property="password" />
+    <result column="Role" jdbcType="INTEGER" property="role" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    UserID, Username, `Password`, `Role`
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from Users
+    where UserID = #{userid,jdbcType=INTEGER}
+  </select>
+  <select id="selectAllUsers" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from Users
+  </select>
+
+  <select id="selectByUsernamePassword" parameterType="com.umass.cs520.domain.Users" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from Users
+    where Username = #{username,jdbcType=VARCHAR} and Password = #{password,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <!--@mbg.generated-->
+    delete from Users
+    where UserID = #{userid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="UserID" keyProperty="userid" parameterType="com.umass.cs520.domain.Users" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into Users (Username, `Password`, `Role`
+      )
+    values (#{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{role,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="UserID" keyProperty="userid" parameterType="com.umass.cs520.domain.Users" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into Users
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="username != null">
+        Username,
+      </if>
+      <if test="password != null">
+        `Password`,
+      </if>
+      <if test="role != null">
+        `Role`,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="role != null">
+        #{role,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.umass.cs520.domain.Users">
+    <!--@mbg.generated-->
+    update Users
+    <set>
+      <if test="username != null">
+        Username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        `Password` = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="role != null">
+        `Role` = #{role,jdbcType=INTEGER},
+      </if>
+    </set>
+    where UserID = #{userid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.umass.cs520.domain.Users">
+    <!--@mbg.generated-->
+    update Users
+    set Username = #{username,jdbcType=VARCHAR},
+      `Password` = #{password,jdbcType=VARCHAR},
+      `Role` = #{role,jdbcType=INTEGER}
+    where UserID = #{userid,jdbcType=INTEGER}
+  </update>
+</mapper>

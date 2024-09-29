@@ -1,0 +1,23 @@
+
+code:   public Map generate(@RequestParam(value = "message", defaultValue = "Tell me a joke") String message) {
+    return Map.of("generation", chatClient.call(message));
+  }
+summary: The generate method you provided is a Spring MVC controller method that handles a request to generate a response using a chat client. It takes a parameter message from the request query parameters, with a default value of "Tell me a joke" if not provided. Then, it calls a chatClient to generate a response based on the provided message.
+
+
+code :   @GetMapping("/ai/generateStream")
+  public Flux<ChatResponse> generateStream(@RequestParam(value = "message", defaultValue = "Tell me a joke") String message) {
+    Prompt prompt = new Prompt(new UserMessage(message));
+    return chatClient.stream(prompt);
+  }
+summary: This Spring MVC controller method generateStream handles a request to generate a stream of chat responses based on a provided message. It returns a reactive Flux of ChatResponse objects.
+
+
+
+Code: <head>
+    <title>Login</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script type="text/javascript" src="login.js"></script>
+</head>
+summary: The code includes a title for a login page, links a CSS stylesheet for styling, and imports a JavaScript file for handling login functionality.
+

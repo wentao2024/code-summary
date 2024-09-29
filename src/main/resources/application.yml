@@ -1,0 +1,54 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: code-summary
+  main:
+    allow-bean-definition-overriding: false
+  datasource:
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+    maxPoolPreparedStatementPerConnectionSize: 20
+    filters: stat,wall,log4j
+    connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+    url: ${DS_URL:jdbc:mysql://localhost:3306/my_database}
+    username: ${DS_USER_NAME:root}
+    password: ${DS_PASSWORD:example}
+  freemarker:
+    template-loader-path: classpath:/templates
+    suffix: .ftl
+
+
+mybatis:
+  mapper-locations: classpath:mapperxml/*Mapper.xml
+
+
+spring.ai.openai.api_key: ${OPENAI_API_KEY}
+spring.ai.openai.chat.options.model: gpt-3.5-turbo
+spring.ai.openai.chat.options.temperature: 0.7
+
+
+
+#logging:
+#  level:
+#    root: info
+#  pattern:
+#    console: "%clr(%d{yyyy-MM-dd HH:mm:ss}){faint} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr(-){faint} %clr([%14.14t]){faint} %clr(%-40.40logger.%13.13M){cyan} %clr(%3.3L) %clr(:){faint} %msg%n${LOG_EXCEPTION_CONVERSION_WORD:%wEx}"
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: [ "health", "metrics","prometheus" ]
+  endpoint:
+    metrics:
+      enabled: true
+    prometheus:
+      enabled: true
+  prometheus:
+    metrics:
+      export:
+        enabled: true

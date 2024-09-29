@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Result Evaluation</title>
+    <style>
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: Arial, sans-serif;
+            color: #333;
+            background-color: #f4f4f4;
+        }
+
+        /* navbar */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #333;
+            color: white;
+            padding: 10px;
+            width: 100%;
+        }
+
+        .left-items {
+            display: flex;
+            align-items: center;
+        }
+
+        .right-items {
+            margin-right: 30px;
+            /* 右边距，保持一定距离 */
+        }
+
+        button {
+            padding: 8px 16px;
+            margin-right: 10px;
+            /* 确保按钮与下拉菜单之间有足够的空间 */
+            background-color: #4CAF50;
+            /* 或者任何其他希望的颜色 */
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #367c39;
+            /* 鼠标悬停时的背景颜色变化 */
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+        }
+
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #f1f1f1;
+        }
+
+        .dropbtn::after {
+            content: '▼';
+            margin-left: 5px;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .main-content {
+            position: absolute;
+            top: 20%;
+            left: 10%;
+            /* transform: translate(-50%, -50%); */
+            padding: 20px;
+            text-align: left;
+            /* 改变对齐方式为左对齐 */
+            margin: 0;
+            width: 80%;
+            /* 可以调整宽度以适应不同屏幕尺寸 */
+            max-width: 900px;
+            /* 限制最大宽度，确保内容不会过宽 */
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #1a1a1a;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            flex: none;
+            /* 确保按钮不被拉伸或压缩 */
+        }
+
+        .footer {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: fixed;
+            bottom: 20px;
+            left: 0;
+            right: 0;
+            padding: 10px 0;
+            background-color: #f4f4f4;
+        }
+
+        .custom-file-upload,
+        #submit-btn {
+            padding: 10px 20px;
+            margin: 0 10px;
+            background-color: #1a1a1a;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        #upload-feedback {
+            margin-top: 10px;
+            color: #1a1a1a;
+
+        }
+    </style>
+</head>
+
+<body>
+    <!-- navbar -->
+    <div class="navbar">
+        <div class="left-items">
+            <button onclick="location.href='history-management.html';">History</button>
+            <div class="dropdown">
+                <button class="dropbtn">Result Evaluator</button>
+                <div class="dropdown-content">
+                    <a href="code_summarization.html">Code Summarizer</a>
+                    <a href="result_evaluation.html">Result Evaluator</a>
+                </div>
+            </div>
+        </div>
+        <div class="right-items">
+            <span id="welcomeMessage" style="padding-right: 42px;">Welcome, <span id="username">Username</span></span>
+            <script>
+                // Assuming the username is stored in local storage
+                document.getElementById('username').textContent = localStorage.getItem('username') || 'Guest';
+            </script>
+            <a href="manage.html"><img src="manage.png" alt="user manage" style="position: absolute; right: 16px; top: 14px; height: 25px;"></a>
+            <!-- <span>Welcome, Username</span> -->
+        </div>
+        
+    </div>
+
+
+    <!-- navbar -->
+    <script>
+        // 简单的JavaScript来控制下拉菜单的显示
+        document.querySelector('.dropbtn').addEventListener('click', function () {
+            document.querySelector('.dropdown-content').style.display = 'block';
+        });
+
+        // 点击其他地方时关闭下拉菜单
+        window.onclick = function (event) {
+            if (!event.target.matches('.dropbtn')) {
+                var dropdowns = document.getElementsByClassName("dropdown-content");
+                for (var i = 0; i < dropdowns.length; i++) {
+                    var openDropdown = dropdowns[i];
+                    if (openDropdown.style.display === 'block') {
+                        openDropdown.style.display = 'none';
+                    }
+                }
+            }
+        }
+    </script>
+
+    <div class="main-content">
+        <h2>How can I help you today?</h2>
+        <p>
+            I can help you with result evaluation.<br>
+            Please upload your file in one of the following formats: DOC, DOCX, PDF, TXT, or ODT.
+        </p>
+    </div>
+
+    <div class="footer">
+        <label for="file-upload" class="custom-file-upload">Click here to choose a file</label>
+        <input id="file-upload" type="file" style="display: none;" />
+        <button id="submit-btn">Submit</button>
+        <div id="upload-feedback"></div> <!-- 新增用于显示消息的元素 -->
+    </div>
+
+    <script>
+        document.querySelector('.custom-file-upload').onclick = function () {
+            document.getElementById('file-upload').click();
+        };
+
+        document.getElementById('file-upload').onchange = function () {
+            if (this.files.length > 0) {
+                var fileName = this.files[0].name;
+                document.getElementById('upload-feedback').textContent = "File chosen: " + fileName;
+            } else {
+                document.getElementById('upload-feedback').textContent = "No file selected.";
+            }
+        };
+
+        document.getElementById('submit-btn').onclick = function () {
+            var fileInput = document.getElementById('file-upload');
+            if (fileInput.files.length > 0) {
+                var file = fileInput.files[0];
+                document.getElementById('upload-feedback').textContent = "Uploading " + file.name + "...";
+
+                // 模拟文件上传过程
+                setTimeout(function () {
+                    // 假设文件已经成功上传
+                    updateMainContentWithResult(file.name);  // 调用函数更新主内容区域
+                }, 2000);  // 延迟2秒代表上传过程
+            } else {
+                document.getElementById('upload-feedback').textContent = "Please select a file to upload.";
+            }
+        };
+
+        function updateMainContentWithResult(fileName) {
+            var mainContent = document.querySelector('.main-content');
+            mainContent.innerHTML = `<h2>Result of the Uploaded File</h2><p>The file <strong>${fileName}</strong> has been successfully processed.</p>`;
+        }
+    </script>
+
+</body>
+
+</html>

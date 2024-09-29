@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.umass.cs520.mapper.EvaluationsMapper">
+  <resultMap id="BaseResultMap" type="com.umass.cs520.domain.Evaluations">
+    <!--@mbg.generated-->
+    <!--@Table Evaluations-->
+    <id column="EvaluationID" jdbcType="INTEGER" property="evaluationid" />
+    <result column="SummarizationID" jdbcType="INTEGER" property="summarizationid" />
+    <result column="UserID" jdbcType="INTEGER" property="userid" />
+    <result column="NaturalnessScore" jdbcType="INTEGER" property="naturalnessscore" />
+    <result column="UsefulnessScore" jdbcType="INTEGER" property="usefulnessscore" />
+    <result column="ConsistencyScore" jdbcType="INTEGER" property="consistencyscore" />
+    <result column="Feedback" jdbcType="LONGVARCHAR" property="feedback" />
+    <result column="EvaluationDate" jdbcType="TIMESTAMP" property="evaluationdate" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    EvaluationID, SummarizationID, UserID, NaturalnessScore, UsefulnessScore, ConsistencyScore, 
+    Feedback, EvaluationDate
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from Evaluations
+    where EvaluationID = #{evaluationid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <!--@mbg.generated-->
+    delete from Evaluations
+    where EvaluationID = #{evaluationid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="EvaluationID" keyProperty="evaluationid" parameterType="com.umass.cs520.domain.Evaluations" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into Evaluations (SummarizationID, UserID, NaturalnessScore, 
+      UsefulnessScore, ConsistencyScore, Feedback, 
+      EvaluationDate)
+    values (#{summarizationid,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER}, #{naturalnessscore,jdbcType=INTEGER}, 
+      #{usefulnessscore,jdbcType=INTEGER}, #{consistencyscore,jdbcType=INTEGER}, #{feedback,jdbcType=LONGVARCHAR}, 
+      #{evaluationdate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" keyColumn="EvaluationID" keyProperty="evaluationid" parameterType="com.umass.cs520.domain.Evaluations" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into Evaluations
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="summarizationid != null">
+        SummarizationID,
+      </if>
+      <if test="userid != null">
+        UserID,
+      </if>
+      <if test="naturalnessscore != null">
+        NaturalnessScore,
+      </if>
+      <if test="usefulnessscore != null">
+        UsefulnessScore,
+      </if>
+      <if test="consistencyscore != null">
+        ConsistencyScore,
+      </if>
+      <if test="feedback != null">
+        Feedback,
+      </if>
+      <if test="evaluationdate != null">
+        EvaluationDate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="summarizationid != null">
+        #{summarizationid,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null">
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="naturalnessscore != null">
+        #{naturalnessscore,jdbcType=INTEGER},
+      </if>
+      <if test="usefulnessscore != null">
+        #{usefulnessscore,jdbcType=INTEGER},
+      </if>
+      <if test="consistencyscore != null">
+        #{consistencyscore,jdbcType=INTEGER},
+      </if>
+      <if test="feedback != null">
+        #{feedback,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="evaluationdate != null">
+        #{evaluationdate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.umass.cs520.domain.Evaluations">
+    <!--@mbg.generated-->
+    update Evaluations
+    <set>
+      <if test="summarizationid != null">
+        SummarizationID = #{summarizationid,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null">
+        UserID = #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="naturalnessscore != null">
+        NaturalnessScore = #{naturalnessscore,jdbcType=INTEGER},
+      </if>
+      <if test="usefulnessscore != null">
+        UsefulnessScore = #{usefulnessscore,jdbcType=INTEGER},
+      </if>
+      <if test="consistencyscore != null">
+        ConsistencyScore = #{consistencyscore,jdbcType=INTEGER},
+      </if>
+      <if test="feedback != null">
+        Feedback = #{feedback,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="evaluationdate != null">
+        EvaluationDate = #{evaluationdate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where EvaluationID = #{evaluationid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.umass.cs520.domain.Evaluations">
+    <!--@mbg.generated-->
+    update Evaluations
+    set SummarizationID = #{summarizationid,jdbcType=INTEGER},
+      UserID = #{userid,jdbcType=INTEGER},
+      NaturalnessScore = #{naturalnessscore,jdbcType=INTEGER},
+      UsefulnessScore = #{usefulnessscore,jdbcType=INTEGER},
+      ConsistencyScore = #{consistencyscore,jdbcType=INTEGER},
+      Feedback = #{feedback,jdbcType=LONGVARCHAR},
+      EvaluationDate = #{evaluationdate,jdbcType=TIMESTAMP}
+    where EvaluationID = #{evaluationid,jdbcType=INTEGER}
+  </update>
+</mapper>

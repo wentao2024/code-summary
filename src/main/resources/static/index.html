@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>  
+<head>
+    <title>Home</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script type="text/javascript" src="login.js"></script>
+</head>
+<body id="home">
+    <div class="nav" id="nav">
+        <ul>
+            <li><a href="index.html">
+                <div id="logo"></div>
+            </a></li>
+            <!-- <li style="float: right;"><a href="#p2">Profile</a></li> -->
+        </ul>
+    </div>
+
+    <div id="main">
+        <div id="display">
+            <h2>Analyze your code</h2>
+            <p>A LLM based tool to summarize and evaluate your code</p>
+        </div>
+        <div id="signup">
+            <h2>Sign Up</h2>
+            <form id="signupform" onsubmit="signUp(event)">
+                <div class="input-group">
+                    <input type="text" name="first-name" placeholder="First Name" style='margin-right: 0.5vw'>
+                    <input type="text" name="last-name" placeholder="Last Name" style='margin-left: 0.5vw;'>
+                </div>
+                <input type="text" name="username" placeholder="Username" >
+                <input type="password" name="password" placeholder="Password">
+                <br>
+                <input type="checkbox" id="show-pass" onclick="showPass()" style="margin: 0; vertical-align:middle; cursor: pointer;">
+                <label for="show-pass" style="font-size: 13px; vertical-align:middle;">Show Password</label>
+                <p style="margin-top: 20px;">Have an account? <a href="login.html">Log in here!</a></p>
+                <button type="submit">Sign Up</button>
+            </form>
+        </div>        
+    </div>
+</body>
+</html>

@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+  db:
+    image: mysql:latest
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: example
+      MYSQL_DATABASE: my_database
+    volumes:
+      - ./mysql-initdb:/docker-entrypoint-initdb.d
+    ports:
+      - "3306:3306"
+
+  init-db:
+    image: mysql:latest
+    volumes:
+      - ./mysql-initdb:/docker-entrypoint-initdb.d
+    command: ["docker-entrypoint.sh", "mysqld", "--datadir", "/initialized-db"]
+    depends_on:
+      - db
